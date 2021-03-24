@@ -215,7 +215,11 @@ jobs:
           base: "staging"
           labels: "RunTests"
 
-      - name: Changed Files Exporter
-        uses: futuratrepadeira/changed-files@v3.3.0
-        with:
-          repo-token: ${{ secrets.GUIDECONVERSIONTOOL_PASSWORD }}
+  GetFilesInPR:
+      needs: createPullRequestStaging
+      runs-on: ubuntu-latest
+      steps:
+        - name: Changed Files Exporter
+          uses: futuratrepadeira/changed-files@v3.3.0
+          with:
+            repo-token: ${{ secrets.GUIDECONVERSIONTOOL_PASSWORD }}
