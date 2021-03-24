@@ -1,4 +1,4 @@
-name: Test Conversion
+name: Test Conversion of All Guides
 on:
   pull_request:
     types:
