@@ -14,10 +14,12 @@ The other panel displays the IDE that you will use to create files, edit the cod
 # What you'll learn
 
 You will learn how to build a MicroProfile Rest Client to access remote RESTful services using asynchronous method calls. 
-You'll update the template interface for a MicroProfile Rest Client, which maps to the remote service that you want to call, to use the **CompletionStage** return type. 
+You'll update the template interface for a MicroProfile Rest Client to use the **CompletionStage** return type. 
+The template interface maps to the remote service that you want to call. 
 A **CompletionStage** interface allows you to work with the result of your remote service call asynchronously.
 
-*What is asynchronous programming?* +
+*What is asynchronous programming?*
+
 Imagine asynchronous programming as a restaurant. 
 After you're seated, a waiter takes your order. 
 Then, you must wait a few minutes for your food to be prepared. 
@@ -316,7 +318,7 @@ The script also creates three instances of the **system** microservice.
 
 
 
-The services take some time to become available. 
+The services might take several minutes to become available.
 You can access the application by making requests to the **query/systemLoad** endpoint by running the following curl command:
 ```
 curl http://localhost:9080/query/systemLoad
@@ -476,15 +478,16 @@ The **testLoads()** test case verifies that the **query** service can calculate 
 
 ### Running the tests
 
-Navigate to the **query** directory, then verify that the tests pass by using the Maven **verify** goal:
+
+Run the following commands to navigate to the **query** directory and verify that the tests pass by using the Maven **verify** goal:
 
 ```
+cd /home/project/guide-microprofile-rest-client-async/start/query
 mvn verify
 ```
 {: codeblock}
 
-
-When the tests succeed, you see output similar to the following example:
+The tests might take a few minutes to complete. When the tests succeed, you see output similar to the following example:
 
 ```
 -------------------------------------------------------
