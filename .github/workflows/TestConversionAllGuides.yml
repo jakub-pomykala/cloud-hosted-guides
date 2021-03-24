@@ -1,11 +1,10 @@
-name: Test Conversion of All Guides
+name: Test Conversion
 on:
   pull_request:
     types:
       - labeled
 
 jobs:
-
   testingConversion:
     runs-on: ubuntu-latest
     if: github.event.label.name == 'TestAll'
@@ -36,5 +35,10 @@ jobs:
 
       - name: Get Guide name
         run: |
+          echo ${{ github.event.pull_request.body }}
+          prText="${{ github.event.pull_request.body }}"
+          removeStart="${prText:44}"
+          removeEnd="${removeStart% *}"
+          echo $removeEnd
           cd GuideConverter
-          mvn -Dtest=TestConversion test -DguideName="cloud-hosted-guides/instructions/cloud-hosted-${{fromJson(needs.matrix.outputs.matrix)}}/instructions"
+          mvn -Dtest=TestConversion test -DguideName="cloud-hosted-guides/instructions/cloud-hosted-$removeEnd/instructions"
