@@ -43,6 +43,7 @@ jobs:
         TASKS="${TASKS//$'\n'/'%0A'}"
         TASKS="${TASKS//$'\r'/'%0D'}"
         echo "::set-output name=matrix::$TASKS"
+
   convertProd:
     needs: matrix
     name: Make PR to Prod
@@ -128,7 +129,7 @@ jobs:
           body: "Updated by github actions, triggered by GuideConverter repo of all guide"
           branch: "cloud-hosted-Manual-ALL/staging"
           base: "staging"
-          labels: "RunTests"
+          labels: "TestAll"
 
   convertStaging:
     needs: matrix
@@ -213,9 +214,4 @@ jobs:
           body: "Updated by github actions, triggered by GuideConverter repo of all guide"
           branch: "cloud-hosted-Manual-ALL/staging"
           base: "staging"
-          labels: "RunTests"
-
-      - name: Changed Files Exporter
-        uses: futuratrepadeira/changed-files@v3.3.0
-        with:
-          repo-token: ${{ secrets.GUIDECONVERSIONTOOL_PASSWORD }}
+          labels: "TestAll"
