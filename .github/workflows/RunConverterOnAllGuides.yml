@@ -111,6 +111,8 @@ jobs:
   createPullRequestProd:
     needs: convertProd
     runs-on: ubuntu-latest
+    if: github.event.inputs.PRNumber != 0
+
     steps:
       - uses: actions/checkout@v2
 
@@ -123,9 +125,33 @@ jobs:
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v3
         with:
-          title: "To Prod: Change to All Guides (From GuideConverter repo PR #${{ github.event.inputs.PRNumber }})"
+          title: "To Prod: Change to multiple Guides"
           token: ${{ secrets.GUIDECONVERSIONTOOL_PASSWORD }}
-          body: "Updated by github actions, triggered by GuideConverter repo of all guide"
+          body: "Updated by github actions, triggered by GuideConverter repo ([PR](https://github.com/OpenLiberty/cloud-hosted-guide-converter/pull/${{ github.event.inputs.PRNumber }}))."
+          branch: "cloud-hosted-Manual-ALL/staging"
+          base: "staging"
+          labels: "RunTests"
+
+  createPullRequestProd0:
+    needs: convertProd
+    runs-on: ubuntu-latest
+    if: github.event.inputs.PRNumber == 0
+
+    steps:
+      - uses: actions/checkout@v2
+
+      # Download all artifacts
+      # https://github.com/actions/download-artifact#download-all-artifacts
+      - uses: actions/download-artifact@v2
+        with:
+          path: instructions/
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v3
+        with:
+          title: "To Prod: Change to All Guides "
+          token: ${{ secrets.GUIDECONVERSIONTOOL_PASSWORD }}
+          body: "Updated by github actions, triggered Manually."
           branch: "cloud-hosted-Manual-ALL/staging"
           base: "staging"
           labels: "RunTests"
@@ -196,6 +222,8 @@ jobs:
   createPullRequestStaging:
     needs: convertStaging
     runs-on: ubuntu-latest
+    if: github.event.inputs.PRNumber != 0
+
     steps:
       - uses: actions/checkout@v2
 
@@ -210,7 +238,32 @@ jobs:
         with:
           title: "To Staging: Change to multiple Guides"
           token: ${{ secrets.GUIDECONVERSIONTOOL_PASSWORD }}
-          body: "Updated by github actions, triggered by GuideConverter repo (PR https://github.com/OpenLiberty/cloud-hosted-guide-converter/pull/${{ github.event.inputs.PRNumber }})."
+          body: "Updated by github actions, triggered by GuideConverter repo ([PR](https://github.com/OpenLiberty/cloud-hosted-guide-converter/pull/${{ github.event.inputs.PRNumber }}))."
+          branch: "cloud-hosted-Manual-ALL/staging"
+          base: "staging"
+          labels: "RunTests"
+
+
+  createPullRequestStaging0:
+    needs: convertStaging
+    runs-on: ubuntu-latest
+    if: github.event.inputs.PRNumber == 0
+
+    steps:
+      - uses: actions/checkout@v2
+
+      # Download all artifacts
+      # https://github.com/actions/download-artifact#download-all-artifacts
+      - uses: actions/download-artifact@v2
+        with:
+          path: instructions/
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v3
+        with:
+          title: "To Staging: Change to multiple Guides"
+          token: ${{ secrets.GUIDECONVERSIONTOOL_PASSWORD }}
+          body: "Updated by github actions, triggered Manually."
           branch: "cloud-hosted-Manual-ALL/staging"
           base: "staging"
           labels: "RunTests"
