@@ -5,6 +5,23 @@ on:
       - labeled
 
 jobs:
+
+  matrix:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      # Any prerequisite steps
+    - uses: actions/checkout@master
+    
+    - id: set-matrix
+      run: |
+        TASKS=$(echo $(cat $GITHUB_WORKSPACE/.github/workflows/guides.json))
+        TASKS="${TASKS//'%'/'%25'}"
+        TASKS="${TASKS//$'\n'/'%0A'}"
+        TASKS="${TASKS//$'\r'/'%0D'}"
+        echo "::set-output name=matrix::$TASKS"
+
   testingConversion:
     runs-on: ubuntu-latest
     if: github.event.label.name == 'RunTests'
@@ -45,6 +62,7 @@ jobs:
 
 
   testingConversionAllGuides:
+    needs: matrix
     runs-on: ubuntu-latest
     if: github.event.label.name == 'TestAll'
 
@@ -74,10 +92,5 @@ jobs:
 
       - name: Get Guide name
         run: |
-          echo ${{ github.event.pull_request.body }}
-          prText="${{ github.event.pull_request.body }}"
-          removeStart="${prText:44}"
-          removeEnd="${removeStart% *}"
-          echo $removeEnd
           cd GuideConverter
-          mvn -Dtest=TestConversion test -DguideName="cloud-hosted-guides/instructions/cloud-hosted-$removeEnd/instructions"
+          mvn -Dtest=TestConversion test -DguideName="cloud-hosted-guides/instructions/cloud-hosted-${{matrix.guides.guide}}/instructions"
