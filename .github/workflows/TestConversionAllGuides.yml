@@ -1,4 +1,4 @@
-name: Test Conversion
+name: Test Conversion All
 on:
   pull_request:
     types:
