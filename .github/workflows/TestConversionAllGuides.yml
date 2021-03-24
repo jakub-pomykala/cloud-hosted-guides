@@ -10,6 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
+    if: github.event.label.name == 'TestAll'
     steps:
       # Any prerequisite steps
     - uses: actions/checkout@master
@@ -28,7 +29,6 @@ jobs:
     strategy:
       matrix:
         guides: ${{fromJson(needs.matrix.outputs.matrix)}}
-    if: github.event.label.name == 'TestAll'
 
     steps:
 
