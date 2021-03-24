@@ -130,7 +130,7 @@ jobs:
           body: "Updated by github actions, triggered by GuideConverter repo ([PR](https://github.com/OpenLiberty/cloud-hosted-guide-converter/pull/${{ github.event.inputs.PRNumber }}))."
           branch: "cloud-hosted-Manual-ALL/staging"
           base: "staging"
-          labels: "RunTests"
+          labels: "TestAll"
 
   createPullRequestProd0:
     needs: convertProd
@@ -149,12 +149,12 @@ jobs:
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v3
         with:
-          title: "To Prod: Change to All Guides "
+          title: "To Prod: Change to All Guides (Manually triggered)"
           token: ${{ secrets.GUIDECONVERSIONTOOL_PASSWORD }}
           body: "Updated by github actions, triggered Manually."
           branch: "cloud-hosted-Manual-ALL/staging"
           base: "staging"
-          labels: "RunTests"
+          labels: "TestAll"
 
   convertStaging:
     needs: matrix
@@ -241,7 +241,7 @@ jobs:
           body: "Updated by github actions, triggered by GuideConverter repo ([PR](https://github.com/OpenLiberty/cloud-hosted-guide-converter/pull/${{ github.event.inputs.PRNumber }}))."
           branch: "cloud-hosted-Manual-ALL/staging"
           base: "staging"
-          labels: "RunTests"
+          labels: "TestAll"
 
 
   createPullRequestStaging0:
@@ -261,9 +261,9 @@ jobs:
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v3
         with:
-          title: "To Staging: Change to multiple Guides"
+          title: "To Staging: Change to multiple Guides (Manually triggered)"
           token: ${{ secrets.GUIDECONVERSIONTOOL_PASSWORD }}
           body: "Updated by github actions, triggered Manually."
           branch: "cloud-hosted-Manual-ALL/staging"
           base: "staging"
-          labels: "RunTests"
+          labels: "TestAll"
