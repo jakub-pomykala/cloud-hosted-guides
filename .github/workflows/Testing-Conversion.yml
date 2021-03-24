@@ -92,5 +92,6 @@ jobs:
 
       - name: Get Guide name
         run: |
+          echo ${{matrix.guides.guide}}
           cd GuideConverter
           mvn -Dtest=TestConversion test -DguideName="cloud-hosted-guides/instructions/cloud-hosted-${{matrix.guides.guide}}/instructions"
