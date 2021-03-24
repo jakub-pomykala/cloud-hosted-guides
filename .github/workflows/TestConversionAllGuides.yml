@@ -6,22 +6,6 @@ on:
 
 jobs:
 
-  matrix:
-    runs-on: ubuntu-latest
-    outputs:
-      matrix: ${{ steps.set-matrix.outputs.matrix }}
-    steps:
-      # Any prerequisite steps
-    - uses: actions/checkout@master
-    
-    - id: set-matrix
-      run: |
-        TASKS=$(echo $(cat $GITHUB_WORKSPACE/.github/workflows/guides.json))
-        TASKS="${TASKS//'%'/'%25'}"
-        TASKS="${TASKS//$'\n'/'%0A'}"
-        TASKS="${TASKS//$'\r'/'%0D'}"
-        echo "::set-output name=matrix::$TASKS"
-
   testingConversion:
     runs-on: ubuntu-latest
     strategy:
