@@ -8,9 +8,6 @@ jobs:
 
   testingConversion:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        guides: ${{fromJson(needs.matrix.outputs.matrix)}}
     if: github.event.label.name == 'TestAll'
 
     steps:
