@@ -208,9 +208,9 @@ jobs:
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v3
         with:
-          title: "To Staging: Change to All Guides (From GuideConverter repo PR #${{ github.event.inputs.PRNumber }})"
+          title: "To Staging: Change to multiple Guides"
           token: ${{ secrets.GUIDECONVERSIONTOOL_PASSWORD }}
-          body: "Updated by github actions, triggered by GuideConverter repo of all guide"
+          body: "Updated by github actions, triggered by GuideConverter repo (PR https://github.com/OpenLiberty/cloud-hosted-guide-converter/pull/${{ github.event.inputs.PRNumber }})."
           branch: "cloud-hosted-Manual-ALL/staging"
           base: "staging"
           labels: "RunTests"
