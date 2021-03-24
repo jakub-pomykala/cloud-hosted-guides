@@ -23,7 +23,6 @@ jobs:
         echo "::set-output name=matrix::$TASKS"
 
   testingConversion:
-    needs: matrix
     runs-on: ubuntu-latest
     strategy:
       matrix:
