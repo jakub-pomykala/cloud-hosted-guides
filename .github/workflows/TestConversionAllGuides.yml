@@ -10,7 +10,6 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
-    if: github.event.label.name == 'TestAll'
     steps:
       # Any prerequisite steps
     - uses: actions/checkout@master
@@ -29,6 +28,7 @@ jobs:
     strategy:
       matrix:
         guides: ${{fromJson(needs.matrix.outputs.matrix)}}
+    if: github.event.label.name == 'TestAll'
 
     steps:
 
@@ -44,7 +44,7 @@ jobs:
       - name: Checkout instructions
         uses: actions/checkout@v2
         with:
-          repository: OpenLiberty/cloud-hosted-guides
+          repository: jakub-pomykala/cloud-hosted-guides
           path: GuideConverter/cloud-hosted-guides
           ref: ${{ github.event.pull_request.branch }}
 
