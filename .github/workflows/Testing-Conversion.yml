@@ -64,6 +64,9 @@ jobs:
   testingConversionAllGuides:
     needs: matrix
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        guides: ${{fromJson(needs.matrix.outputs.matrix)}}
     if: github.event.label.name == 'TestAll'
 
     steps:
@@ -92,6 +95,5 @@ jobs:
 
       - name: Get Guide name
         run: |
-          echo ${{matrix.guides.guide}}
           cd GuideConverter
           mvn -Dtest=TestConversion test -DguideName="cloud-hosted-guides/instructions/cloud-hosted-${{matrix.guides.guide}}/instructions"
