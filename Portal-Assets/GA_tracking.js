@@ -22,4 +22,10 @@ function run_script() {
     });
     }
     
-    $('#dislike').click(run_script);
+    function myFunction() {
+  alert("I am an alert box!");
+}
+
+// $("#dislike").click(myFunction);
+
+myFunction()
